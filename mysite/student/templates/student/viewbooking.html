@@ -1,0 +1,29 @@
+{% extends 'pebookingsystem/viewbooking.html' %}
+
+{% block content %}
+    <div class="content-title">My Booking</div>
+    <div class="content-subheading">
+        {% if role == 'Parent' %}
+            Student: {{ student.fullname }}<br>
+        {% endif %}
+        Parents' Evening: {{ pe.pename }}
+        <br>
+        Class: {{ schoolclass.subject }}
+        <br>
+        Timeslot: {{ timeslot }}
+    </div>
+
+    <div id="booking">
+        <div id="top">
+            <div class="content-subheading">Notes:</div>
+            <div id="notes">{{ notes }}</div>
+        </div>
+        {% if role == 'Parent' %}
+            <a href="{% url 'parent:class' student.id pe.id schoolclass.id %}" id="left-button" class="button">Back</a>
+            <a href="{% url 'parent:remove' student.id pe.id schoolclass.id urltimeslot %}" id="right-button" class="button">Remove</a>
+        {% else %}
+            <a href="{% url 'student:class' pe.id schoolclass.id %}" id="left-button" class="button">Back</a>
+            <a href="{% url 'student:remove' pe.id schoolclass.id urltimeslot %}" id="right-button" class="button">Remove</a>
+        {% endif %}
+    </div>
+{% endblock %}

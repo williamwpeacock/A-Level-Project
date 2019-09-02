@@ -1,0 +1,38 @@
+#content {
+    grid-area: content;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 0.5fr 1fr auto;
+    grid-template-areas:
+    "welcome"
+    "username"
+    "explain"
+    "continue";
+}
+
+#welcome {
+    grid-area: welcome;
+    text-align: center;
+    padding-top: 15px;
+}
+
+#username {
+    grid-area: username;
+    text-align: center;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+#explain {
+    grid-area: explain;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: 25px;
+}
+
+#continue {
+    grid-area: continue;
+    margin: 30px;
+    margin-left: 150px;
+    margin-right: 150px;
+}

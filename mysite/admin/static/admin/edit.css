@@ -1,0 +1,27 @@
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr auto auto;
+    grid-template-areas:
+    "form form form"
+    "error error error"
+    "left-button middle-button right-button";
+}
+
+#left-button {
+    grid-area: left-button;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#middle-button {
+    grid-area: middle-button;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#right-button {
+    grid-area: right-button;
+    margin-left: 20px;
+    margin-right: 20px;
+}

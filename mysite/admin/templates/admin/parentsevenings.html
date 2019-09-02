@@ -1,0 +1,64 @@
+{% extends 'pebookingsystem/base.html' %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'admin/parentsevenings.css' %}" type="text/css">
+    <title>Cheney School Parents' Evenings - Parents' Evenings</title>
+{% endblock %}
+
+{% block nav-top %}
+    <p>>> <a href="{% url 'admin:welcome' %}">Welcome</a> >> Parents' Evenings</p>
+{% endblock %}
+
+{% block nav-side-title %}
+    <h2>Admin</h2>
+{% endblock %}
+
+{% block nav-side-content %}
+    <a href="{% url 'admin:accounts' %}"><div class="list">Accounts</div></a>
+    <a href="{% url 'admin:classes' %}"><div class="list">Classes</div></a>
+    <div class="list-selected">Parents' Evenings</div>
+{% endblock %}
+
+{% block content %}
+    <div class="content-title">Parents' Evenings</div>
+
+    <div class="content-text">
+        To add a parents' evening click the 'Add Parents' Evening' button below. Once it has
+        been added, the parents' evening can be edited or deleted at anytime by clicking the
+        'Edit' button next to it on this page.
+    </div>
+
+    <div id="add-button">
+        <a href="{% url 'admin:addparentsevening' %}" id="add-link" class="button">Add Parents' Evening</a>
+    </div>
+
+    <table id="bookings-table">
+        <tr>
+            <th class="bookings-table-heading">Parents' Evening ID</th>
+            <th class="bookings-table-heading">Name</th>
+            <th class="bookings-table-heading">Date</th>
+            <th class="bookings-table-heading">Duration</th>
+            <th></th>
+        </tr>
+            {% if pes|length > 0 %}
+                {% for pe in pes %}
+                    <tr>
+                        <th class="bookings-table-row">{{ pe.id }}</th>
+                        <th class="bookings-table-row">{{ pe.pename }}</th>
+                        <th class="bookings-table-row">{{ pe.date }}</th>
+                        <th class="bookings-table-row">{{ pe.starttime|time:"H:i" }} - {{ pe.endtime|time:"H:i" }}</th>
+                        <th><a href="{% url 'admin:editparentsevening' pe.id %}"><div class="bookings-table-button">Edit</div></a></th>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <th class="bookings-table-row">No Parents' Evenings</th>
+                    <th class="bookings-table-row">No Parents' Evenings</th>
+                    <th class="bookings-table-row">No Parents' Evenings</th>
+                    <th class="bookings-table-row">No Parents' Evenings</th>
+                    <th></th>
+                </tr>
+            {% endif %}
+    </table>
+{% endblock %}

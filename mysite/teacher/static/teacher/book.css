@@ -1,0 +1,51 @@
+form {
+    grid-area: content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr 0.3fr auto;
+    grid-template-areas:
+    "student student"
+    "notes notes"
+    "error error"
+    "left-button right-button";
+}
+
+#student {
+    grid-area: student;
+}
+
+#student-selection {
+    margin-left: 50px;
+    width: 25%;
+    font-size: 20px;
+}
+
+#notes {
+    grid-area: notes;
+}
+
+.form-field {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    font-size: 16px;
+}
+
+#error {
+    grid-area: error;
+    padding: 10px;
+    text-align: center;
+    font-size: 25px;
+}
+
+#left-button {
+    grid-area: left-button;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+#right-button {
+    grid-area: right-button;
+    margin-left: 80px;
+    margin-right: 80px;
+}

@@ -1,0 +1,26 @@
+form {
+    grid-area: content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 0.75fr auto;
+    grid-template-areas:
+    "pin pin"
+    "explain explain"
+    "error error"
+    "left-button right-button";
+}
+
+#pin {
+    grid-area: pin;
+    margin-left: 5%;
+    text-indent: 10px;
+    width: 90%;
+    padding-top: 5%;
+}
+
+#explain {
+    grid-area: explain;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: 25px;
+}

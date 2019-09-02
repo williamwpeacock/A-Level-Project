@@ -1,0 +1,29 @@
+{% extends 'pebookingsystem/parentsevening.html' %}
+
+{% block bookings %}
+    <table id="bookings-table">
+        <tr>
+            <th class="bookings-table-heading">Class</th>
+            <th class="bookings-table-heading">Student</th>
+            <th class="bookings-table-heading">Date</th>
+            <th class="bookings-table-heading">Timeslot</th>
+        </tr>
+            {% if bookings|length > 0 %}
+                {% for booking in bookings %}
+                    <tr>
+                        <th class="bookings-table-row">{{ booking.schoolclass__classname }}</th>
+                        <th class="bookings-table-row">{{ booking.student__fullname }}</th>
+                        <th class="bookings-table-row">{{ booking.parentsevening__date }}</th>
+                        <th class="bookings-table-row">{{ booking.timeslot|time:"H:i" }}</th>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                </tr>
+            {% endif %}
+    </table>
+{% endblock %}

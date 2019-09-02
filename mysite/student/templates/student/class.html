@@ -1,0 +1,50 @@
+{% extends 'pebookingsystem/class.html' %}
+
+{% block bookings %}
+    <table id="bookings-table">
+        <tr>
+            <th class="bookings-table-heading">Timeslot</th>
+            <th class="bookings-table-heading">Teacher Availability</th>
+            <th class="bookings-table-heading">
+                {% if role == 'Parent' %}
+                    {{ student.fullname }}'s
+                {% else %}
+                    My
+                {% endif %}
+                Conflicts
+            </th>
+            <th></th>
+        </tr>
+            {% if bookings|length > 0 %}
+                {% for booking in bookings %}
+                    <tr>
+                        <th class="bookings-table-row">{{ booking.0 }}</th>
+                        <th class="bookings-table-row">{{ booking.1 }}</th>
+                        <th class="bookings-table-row">{{ booking.2 }}</th>
+                        {% if booking.3 == 'book' %}
+                            {% if role == 'Parent' %}
+                                <th><a href="{% url 'parent:book' student.id pe.id schoolclass.id booking.4 %}"><div class="bookings-table-button">Book</div></a></th>
+                            {% else %}
+                                <th><a href="{% url 'student:book' pe.id schoolclass.id booking.4 %}"><div class="bookings-table-button">Book</div></a></th>
+                            {% endif %}
+                        {% elif booking.3 == 'view' %}
+                            {% if role == 'Parent' %}
+                                <th><a href="{% url 'parent:view' student.id pe.id schoolclass.id booking.4 %}"><div class="bookings-table-button">View</div></a></th>
+                            {% else %}
+                                <th><a href="{% url 'student:view' pe.id schoolclass.id booking.4 %}"><div class="bookings-table-button">View</div></a></th>
+                            {% endif %}
+                        {% else %}
+                            <th></th>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th></th>
+                </tr>
+            {% endif %}
+    </table>
+{% endblock %}

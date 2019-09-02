@@ -1,0 +1,45 @@
+{% extends 'pebookingsystem/welcome.html' %}
+
+{% block explain %}
+    <div class="content-text">
+        Welcome to the Cheney School parents' evening booking system!<br>
+        <br>
+        To book a parents' evening, click on the relevant parents' evening in the left navigation
+        bar then navigate to the class you would like to book. Once you have selected a class,
+        find an available timeslot that suits you and click 'Book'.<br>
+        <br>
+        To view your booking, click 'View' next to your booking on the relevant class
+        page. You can remove your booking at any time by clicking 'Remove' on the view booking
+        page.<br>
+        <br>
+        To get back to this page, click on the title in the header or use the top navigation bar.
+    </div>
+{% endblock %}
+
+{% block bookings %}
+    <table id="bookings-table">
+        <tr>
+            <th class="bookings-table-heading">Parents' Evening</th>
+            <th class="bookings-table-heading">Class</th>
+            <th class="bookings-table-heading">Date</th>
+            <th class="bookings-table-heading">Timeslot</th>
+        </tr>
+            {% if bookings|length > 0 %}
+                {% for booking in bookings %}
+                    <tr>
+                        <th class="bookings-table-row">{{ booking.parentsevening__pename }}</th>
+                        <th class="bookings-table-row">{{ booking.schoolclass__subject }}</th>
+                        <th class="bookings-table-row">{{ booking.parentsevening__date }}</th>
+                        <th class="bookings-table-row">{{ booking.timeslot|time:"H:i" }}</th>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                </tr>
+            {% endif %}
+    </table>
+{% endblock %}

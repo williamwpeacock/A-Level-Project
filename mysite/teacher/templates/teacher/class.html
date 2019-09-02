@@ -1,0 +1,35 @@
+{% extends 'pebookingsystem/class.html' %}
+
+{% block bookings %}
+    <table id="bookings-table">
+        <tr>
+            <th class="bookings-table-heading">Timeslot</th>
+            <th class="bookings-table-heading">Teacher Availability</th>
+            <th class="bookings-table-heading">Class Booking</th>
+            <th></th>
+        </tr>
+            {% if bookings|length > 0 %}
+                {% for booking in bookings %}
+                    <tr>
+                        <th class="bookings-table-row">{{ booking.0 }}</th>
+                        <th class="bookings-table-row">{{ booking.1 }}</th>
+                        <th class="bookings-table-row">{{ booking.2 }}</th>
+                        {% if booking.3 == 'book' %}
+                            <th><a href="{% url 'teacher:book' pe.id schoolclass.id booking.4 %}"><div class="bookings-table-button">Book</div></a></th>
+                        {% elif booking.3 == 'view' %}
+                            <th><a href="{% url 'teacher:view' pe.id schoolclass.id booking.4 %}"><div class="bookings-table-button">View</div></a></th>
+                        {% else %}
+                            <th></th>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th></th>
+                </tr>
+            {% endif %}
+    </table>
+{% endblock %}

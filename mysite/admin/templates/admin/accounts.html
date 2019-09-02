@@ -1,0 +1,74 @@
+{% extends 'pebookingsystem/base.html' %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'admin/accounts.css' %}" type="text/css">
+    <title>Cheney School Parents' Evenings - Accounts</title>
+{% endblock %}
+
+{% block nav-top %}
+    <p>>> <a href="{% url 'admin:welcome' %}">Welcome</a> >> Accounts</p>
+{% endblock %}
+
+{% block nav-side-title %}
+    <h2>Admin</h2>
+{% endblock %}
+
+{% block nav-side-content %}
+    <div class="list-selected">Accounts</div>
+    <a href="{% url 'admin:classes' %}"><div class="list">Classes</div></a>
+    <a href="{% url 'admin:parentsevenings' %}"><div class="list">Parents' Evenings</div></a>
+{% endblock %}
+
+{% block content %}
+    <div class="content-title">Accounts</div>
+
+    <div class="content-text">
+        To add an account click one of the 'Add' buttons below. Once it has been added,
+        the account can be edited or deleted at anytime by clicking the 'Edit' button
+        next to it on this page.<br>
+        <br>
+        To allow someone to log into their account, make sure the 'Use PIN?' box is ticked,
+        then give them the PIN corresponding to their account. From here they can set a
+        password for their account and log in.
+    </div>
+
+    <div id="add-buttons">
+        <a href="{% url 'admin:addaccount' 'student' %}" id="add-button" class="button">Add Student</a>
+        <a href="{% url 'admin:addaccount' 'parent' %}" id="add-button" class="button">Add Parent</a>
+        <a href="{% url 'admin:addaccount' 'teacher' %}" id="add-button" class="button">Add Teacher</a>
+        <a href="{% url 'admin:addaccount' 'admin' %}" id="add-button" class="button">Add Admin</a>
+    </div>
+
+    <table id="bookings-table">
+        <tr>
+            <th class="bookings-table-heading">Account ID</th>
+            <th class="bookings-table-heading">Username</th>
+            <th class="bookings-table-heading">Full Name</th>
+            <th class="bookings-table-heading">Role</th>
+            <th class="bookings-table-heading">PIN</th>
+            <th></th>
+        </tr>
+            {% if users|length > 0 %}
+                {% for user in users %}
+                    <tr>
+                        <th class="bookings-table-row">{{ user.0 }}</th>
+                        <th class="bookings-table-row">{{ user.1 }}</th>
+                        <th class="bookings-table-row">{{ user.2 }}</th>
+                        <th class="bookings-table-row">{{ user.3 }}</th>
+                        <th class="bookings-table-row">{{ user.4 }}</th>
+                        <th><a href="{% url 'admin:editaccount' user.0 %}"><div class="bookings-table-button">Edit</div></a></th>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <th class="bookings-table-row">No Accounts</th>
+                    <th class="bookings-table-row">No Accounts</th>
+                    <th class="bookings-table-row">No Accounts</th>
+                    <th class="bookings-table-row">No Accounts</th>
+                    <th class="bookings-table-row">No Accounts</th>
+                    <th></th>
+                </tr>
+            {% endif %}
+    </table>
+{% endblock %}

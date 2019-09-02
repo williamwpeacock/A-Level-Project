@@ -1,0 +1,64 @@
+{% extends 'pebookingsystem/base.html' %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'admin/classes.css' %}" type="text/css">
+    <title>Cheney School Parents' Evenings - Classes</title>
+{% endblock %}
+
+{% block nav-top %}
+    <p>>> <a href="{% url 'admin:welcome' %}">Welcome</a> >> Classes</p>
+{% endblock %}
+
+{% block nav-side-title %}
+    <h2>Admin</h2>
+{% endblock %}
+
+{% block nav-side-content %}
+    <a href="{% url 'admin:accounts' %}"><div class="list">Accounts</div></a>
+    <div class="list-selected">Classes</div>
+    <a href="{% url 'admin:parentsevenings' %}"><div class="list">Parents' Evenings</div></a>
+{% endblock %}
+
+{% block content %}
+    <div class="content-title">Classes</div>
+
+    <div class="content-text">
+        To add a class click the 'Add Class' button below. Once it has been added, the class
+        can be edited or deleted at anytime by clicking the 'Edit' button next to it on this
+        page.
+    </div>
+
+    <div id="add-button">
+        <a href="{% url 'admin:addclass' %}" id="add-link" class="button">Add Class</a>
+    </div>
+
+    <table id="bookings-table">
+        <tr>
+            <th class="bookings-table-heading">Class ID</th>
+            <th class="bookings-table-heading">Class Name</th>
+            <th class="bookings-table-heading">School Year</th>
+            <th class="bookings-table-heading">Subject</th>
+            <th></th>
+        </tr>
+            {% if schoolclasses|length > 0 %}
+                {% for class in schoolclasses %}
+                    <tr>
+                        <th class="bookings-table-row">{{ class.id }}</th>
+                        <th class="bookings-table-row">{{ class.classname }}</th>
+                        <th class="bookings-table-row">{{ class.schoolyear }}</th>
+                        <th class="bookings-table-row">{{ class.subject }}</th>
+                        <th><a href="{% url 'admin:editclass' class.id %}"><div class="bookings-table-button">Edit</div></a></th>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <th class="bookings-table-row">No Classes</th>
+                    <th class="bookings-table-row">No Classes</th>
+                    <th class="bookings-table-row">No Classes</th>
+                    <th class="bookings-table-row">No Classes</th>
+                    <th></th>
+                </tr>
+            {% endif %}
+    </table>
+{% endblock %}

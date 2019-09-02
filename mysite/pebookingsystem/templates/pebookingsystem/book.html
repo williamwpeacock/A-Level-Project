@@ -1,0 +1,75 @@
+{% extends 'pebookingsystem/base.html' %}
+
+{% block head %}
+    <title>Cheney School Parents' Evenings -
+    {% if role == 'Parent' %}
+        {{ student.fullname }} -
+    {% endif %}
+    {{ pe.pename }} -
+    {% if role == 'Teacher' %}
+        {{ schoolclass.classname }}
+    {% else %}
+        {{ schoolclass.subject }}
+    {% endif %}
+    - Book {{ timeslot }}</title>
+    {% block bookhead %}
+    {% endblock %}
+{% endblock %}
+
+{% block nav-top %}
+    <p>>>
+    {% if role == 'Student' %}
+        <a href="{% url 'student:welcome' %}">Welcome</a> >> <a href="{% url 'student:parentsevening' pe.id %}">{{ pe.pename }}</a> >> <a href="{% url 'student:class' pe.id schoolclass.id %}">{{ schoolclass.subject }}</a>
+    {% elif role == 'Teacher' %}
+        <a href="{% url 'teacher:welcome' %}">Welcome</a> >> <a href="{% url 'teacher:parentsevening' pe.id %}">{{ pe.pename }}</a> >> <a href="{% url 'teacher:class' pe.id schoolclass.id %}">{{ schoolclass.classname }}</a>
+    {% elif role == 'Parent' %}
+        <a href="{% url 'parent:welcome' %}">Welcome</a> >> <a href="{% url 'parent:child' student.id %}">{{ student.fullname }}</a> >> <a href="{% url 'parent:parentsevening' student.id pe.id %}">{{ pe.pename }}</a> >> <a href="{% url 'parent:class' student.id pe.id schoolclass.id %}">{{ schoolclass.subject }}</a>
+    {% endif %}
+     >> Book {{ timeslot }}</p>
+{% endblock %}
+
+{% block nav-side-title %}
+    <h2>{{ pe.pename }}</h2>
+{% endblock %}
+
+{% block nav-side-content %}
+    {% for class in schoolclasses %}
+        {% if class.id == schoolclass.id %}
+            {% if role == 'Teacher' %}
+                <div class="list-selected">{{ class.classname }}</div>
+            {% else %}
+                <div class="list-selected">{{ class.subject }}</div>
+            {% endif %}
+        {% else %}
+            {% if role == 'Student' %}
+                <a href="{% url 'student:class' pe.id class.id %}" class="list-link"><div class="list">{{ class.subject }}</div></a>
+            {% elif role == 'Teacher' %}
+                <a href="{% url 'teacher:class' pe.id class.id %}" class="list-link"><div class="list">{{ class.classname }}</div></a>
+            {% elif role == 'Parent' %}
+                <a href="{% url 'parent:class' student.id pe.id class.id %}" class="list-link"><div class="list">{{ class.subject }}</div></a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+    <div class="content-title">Booking Form</div>
+    <div class="content-subheading">
+        {% if role == 'Parent' %}
+            Student: {{ student.fullname }}<br>
+        {% endif %}
+        Parents' Evening: {{ pe.pename }}
+        <br>
+        Class:
+        {% if role == 'Teacher' %}
+            {{ schoolclass.classname }}
+        {% else %}
+            {{ schoolclass.subject }}
+        {% endif %}
+        <br>
+        Timeslot: {{ timeslot }}
+    </div>
+
+    {% block bookingform %}
+    {% endblock %}
+{% endblock %}

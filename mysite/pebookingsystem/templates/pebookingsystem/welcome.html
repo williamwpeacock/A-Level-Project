@@ -1,0 +1,53 @@
+{% extends 'pebookingsystem/base.html' %}
+
+{% block head %}
+    <title>Cheney School Parents' Evenings - Welcome</title>
+{% endblock %}
+
+{% block nav-top %}
+    <p>>> Welcome</p>
+{% endblock %}
+
+{% block nav-side-title %}
+    {% if role == 'Parent' %}
+        <h2>Children</h2>
+    {% else %}
+        <h2>Parents' Evenings</h2>
+    {% endif %}
+{% endblock %}
+
+{% block nav-side-content %}
+    {% if pes|length > 0 %}
+        {% for pe in pes %}
+            {% if role == 'Student' %}
+                <a href="{% url 'student:parentsevening' pe.id %}" class="list-link"><div class="list">{{ pe.pename }}</div></a>
+            {% elif role == 'Teacher' %}
+                <a href="{% url 'teacher:parentsevening' pe.id %}" class="list-link"><div class="list">{{ pe.pename }}</div></a>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% if children|length > 0 %}
+            {% for student in children %}
+                <a href="{% url 'parent:child' student.id %}" class="list-link"><div class="list">{{ student.fullname }}</div></a>
+            {% endfor %}
+        {% else %}
+            {% if role == 'Parent' %}
+                <div id="no-nav">No Children</div>
+            {% else %}
+                <div id="no-nav">No Parents' Evenings</div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="content-title">Welcome Back {{ fullname }}!</div>
+
+    {% block explain %}
+    {% endblock %}
+
+    <div class="content-subheading">My Bookings</div>
+
+    {% block bookings %}
+    {% endblock %}
+{% endblock %}

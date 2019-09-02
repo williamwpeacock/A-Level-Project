@@ -1,0 +1,20 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'login/base.css' %}" type="text/css">
+        <link rel="icon" href="{% static 'logowhite.png' %}">
+        {% block head %}
+        {% endblock %}
+    </head>
+
+    <body>
+        <div id="container">
+            <div id="header">
+                <img src="{% static 'logo.png' %}" />
+                <div id="title">CHENEY SCHOOL Parents' Evenings</div>
+            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

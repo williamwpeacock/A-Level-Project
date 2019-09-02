@@ -1,0 +1,47 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'pebookingsystem/base.css' %}" type="text/css">
+        <link rel="icon" href="{% static 'logowhite.png' %}">
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body>
+        <div id="nav-top">
+            {% block nav-top %}
+            {% endblock %}
+        </div>
+        <div id="header">
+            {% if user.role == 'Student' %}
+                <a href="{% url 'student:welcome' %}" id="home">
+            {% elif user.role == 'Teacher' %}
+                <a href="{% url 'teacher:welcome' %}" id="home">
+            {% elif user.role == 'Parent' %}
+                <a href="{% url 'parent:welcome' %}" id="home">
+            {% elif user.role == 'Admin' %}
+                <a href="{% url 'admin:welcome' %}" id="home">
+            {% endif %}
+                <img src="{% static 'logowhite.png' %}" />
+                <div id="title">CHENEY SCHOOL Parents' Evenings</div>
+            </a>
+            <a href="{% url 'login:logout' %}" id="logout">Logout</a>
+            <div id="logged-in-as">Logged in as {{ username }}</div>
+        </div>
+        <div id="nav-side">
+            <div id="nav-side-title">
+                {% block nav-side-title %}
+                {% endblock %}
+            </div>
+            <div id="nav-side-content">
+                {% block nav-side-content %}
+                {% endblock %}
+            </div>
+        </div>
+        <div id="content-container">
+            <div id="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+#details {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+    "students parents"
+    "teachers admins"
+    "pes schoolclasses";
+}
+
+#students {
+    grid-area: students;
+}
+
+#parents {
+    grid-area: parents;
+}
+
+#teachers {
+    grid-area: teachers;
+}
+
+#admins {
+    grid-area: admins;
+}
+
+#pes {
+    grid-area: pes;
+}
+
+#schoolclasses {
+    grid-area: schoolclasses;
+}
+
+.details-button {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.details-button:hover {
+    margin-top: 5px;
+}
+
+.details-box {
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #000;
+}
+
+.details-box:hover {
+    background-color: #ddd;
+}
+
+.count {
+    margin: 40px;
+}

@@ -1,0 +1,77 @@
+{% extends 'pebookingsystem/base.html' %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'admin/welcome.css' %}" type="text/css">
+    <title>Cheney School Parents' Evenings - Welcome</title>
+{% endblock %}
+
+{% block nav-top %}
+    <p>>> Welcome</p>
+{% endblock %}
+
+{% block nav-side-title %}
+    <h2>Admin</h2>
+{% endblock %}
+
+{% block nav-side-content %}
+    <a href="{% url 'admin:accounts' %}"><div class="list">Accounts</div></a>
+    <a href="{% url 'admin:classes' %}"><div class="list">Classes</div></a>
+    <a href="{% url 'admin:parentsevenings' %}"><div class="list">Parents' Evenings</div></a>
+{% endblock %}
+
+{% block content %}
+    <div class="content-title">Welcome Back {{ fullname }}!</div>
+
+    <div class="content-text">
+        Welcome to the Cheney School parents' evening booking system!<br>
+        <br>
+        Use the buttons below or the left navigation bar to manage the accounts, classes, and
+        parents' evenings.<br>
+        <br>
+        To add an account, class, or parents' evening navigate to the corresponding page and
+        click the 'Add' button. Once it has been added, the account, class, or parents' evening
+        can be edited or deleted at anytime by clicking the 'Edit' button next to it.<br>
+        <br>
+        To get back to this page, click on the title in the header or use the top navigation bar.
+    </div>
+
+    <div id="details">
+        <a href="{% url 'admin:accounts' %}" class="details-button">
+            <div id="students" class="details-box">
+                <h1>Students</h1>
+                <h1 class="count">{{ students }}</h1>
+            </div>
+        </a>
+        <a href="{% url 'admin:accounts' %}" class="details-button">
+            <div id="parents" class="details-box">
+                <h1>Parents</h1>
+                <h1 class="count">{{ parents }}</h1>
+            </div>
+        </a>
+        <a href="{% url 'admin:accounts' %}" class="details-button">
+            <div id="teachers" class="details-box">
+                <h1>Teachers</h1>
+                <h1 class="count">{{ teachers }}</h1>
+            </div>
+        </a>
+        <a href="{% url 'admin:accounts' %}" class="details-button">
+            <div id="admins" class="details-box">
+                <h1>Admins</h1>
+                <h1 class="count">{{ admins }}</h1>
+            </div>
+        </a>
+        <a href="{% url 'admin:parentsevenings' %}" class="details-button">
+            <div id="pes" class="details-box">
+                <h1>Parents' Evenings</h1>
+                <h1 class="count">{{ pes }}</h1>
+            </div>
+        </a>
+        <a href="{% url 'admin:classes' %}" class="details-button">
+            <div id="schoolclasses" class="details-box">
+                <h1>Classes</h1>
+                <h1 class="count">{{ schoolclasses }}</h1>
+            </div>
+        </a>
+    </div>
+{% endblock %}

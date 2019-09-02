@@ -1,0 +1,32 @@
+form {
+    grid-area: content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.75fr 1fr 1fr 0.75fr auto;
+    grid-template-areas:
+    "welcome welcome"
+    "password1 password1"
+    "password2 password2"
+    "error error"
+    "left-button right-button";
+}
+
+#welcome {
+    grid-area: welcome;
+    text-align: center;
+    padding-top: 15px;
+}
+
+#password1, #password2 {
+    margin-left: 5%;
+    text-indent: 10px;
+    width: 90%;
+}
+
+#password1 {
+    grid-area: password1;
+}
+
+#password2 {
+    grid-area: password2;
+}

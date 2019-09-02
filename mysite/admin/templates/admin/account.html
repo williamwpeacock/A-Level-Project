@@ -1,0 +1,73 @@
+{% extends 'pebookingsystem/base.html' %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'admin/forms.css' %}" type="text/css">
+    {% if mode == 'Add' %}
+        <link rel="stylesheet" href="{% static 'admin/add.css' %}" type="text/css">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'admin/edit.css' %}" type="text/css">
+    {% endif %}
+    <title>Cheney School Parents' Evenings - Accounts - {{ mode }} {{ role }}</title>
+{% endblock %}
+
+{% block nav-top %}
+    <p>>> <a href="{% url 'admin:welcome' %}">Welcome</a> >> <a href="{% url 'admin:accounts' %}">Accounts</a> >> {{ mode }} {{ role }}
+{% endblock %}
+
+{% block nav-side-title %}
+    <h2>Admin</h2>
+{% endblock %}
+
+{% block nav-side-content %}
+    <div class="list-selected">Accounts</div>
+    <a href="{% url 'admin:classes' %}"><div class="list">Classes</div></a>
+    <a href="{% url 'admin:parentsevenings' %}"><div class="list">Parents' Evenings</div></a>
+{% endblock %}
+
+{% block content %}
+    <div class="content-title">
+    {{ mode }} {{ role }} Form</div>
+
+    <form method="post">
+        {% csrf_token %}
+        {% if role == "Student" %}
+            <div id="form-student" class="form">
+        {% elif role == "Parent" %}
+            <div id="form-parent" class="form">
+        {% elif role == "Teacher" %}
+            <div id="form-teacher" class="form">
+        {% elif role == "Admin" %}
+            <div id="form-admin" class="form">
+        {% endif %}
+            <div class="content-subheading">Username:</div> {{ form.username }} <p class="form-explain"></p>
+            <div class="content-subheading">Use PIN?</div> {{ form.pin }} <p class="form-explain"></p>
+            <div class="content-subheading">Full Name:</div> {{ form.fullname }} <p class="form-explain"></p>
+            {% if role == "Student" %}
+                <div class="content-subheading">School Year:</div> {{ form.schoolyear }} <p class="form-explain"></p>
+                <div class="content-subheading">Parents:</div> {{ form.parents }} <p class="form-explain">Hold Ctrl and click on the options to select multiple.</p>
+                <div class="content-subheading">Classes:</div> {{ form.schoolclasses }} <p class="form-explain">Hold Ctrl and click on the options to select multiple.</p>
+            {% elif role == "Parent" %}
+                <div class="content-subheading">Children:</div> {{ form.children }} <p class="form-explain">Hold Ctrl and click on the options to select multiple.</p>
+            {% elif role == "Teacher" %}
+                <div class="content-subheading">Title:</div> {{ form.title }} <p class="form-explain"></p>
+                <div class="content-subheading">Subject:</div> {{ form.subject }} <p class="form-explain"></p>
+                <div class="content-subheading">Classes:</div> {{ form.schoolclasses }} <p class="form-explain">Hold Ctrl and click on the options to select multiple.</p>
+            {% endif %}
+        </div>
+        <div id="error">
+            {{ error_message }}
+        </div>
+        <a href="{% url 'admin:accounts' %}" id="left-button" class="button">Back</a>
+        {% if mode == 'Edit' %}
+            <a href="{% url 'admin:deleteaccount' account_id %}" id="middle-button" class="button">Delete</a>
+        {% endif %}
+        <button type="submit" id="right-button" class="button">
+        {% if mode == 'Add' %}
+            Add
+        {% else %}
+            Update
+        {% endif %}
+        </button>
+    </form>
+{% endblock %}

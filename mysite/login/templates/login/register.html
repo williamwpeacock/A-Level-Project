@@ -1,0 +1,29 @@
+{% extends 'login/base.html' %}
+
+{% block head %}
+    <title>Cheney School Parents' Evenings - Set Password</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'login/register.css' %}" type="text/css">
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div id="welcome">
+            Welcome {{ fullname }}!
+        </div>
+        <div id="password1">
+            New Password:<br>
+            {{ form.password1 }}
+        </div>
+        <div id="password2">
+            Confirm Password:<br>
+            {{ form.password2 }}
+        </div>
+        <div id="error">
+            {{ error_message }}
+        </div>
+        <a href="{% url 'login:enterpin' %}" id="left-button" class="button">Back</a>
+        <button type="submit" id="right-button" class="button">Set Password</button>
+    </form>
+{% endblock %}

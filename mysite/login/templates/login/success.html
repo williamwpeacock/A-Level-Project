@@ -1,0 +1,30 @@
+{% extends 'login/base.html' %}
+
+{% block head %}
+    <title>Cheney School Parents' Evenings - Success</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'login/success.css' %}" type="text/css">
+{% endblock %}
+
+{% block content %}
+    <div id="content">
+        <div id="welcome">
+            Welcome {{ fullname }}!
+        </div>
+        <div id="username">
+            Your Username: {{ username }}
+        </div>
+        <div id="explain">
+            Next time you log in you must use the username above with the password you just entered. Your PIN will no longer be valid.
+        </div>
+        {% if role == 'Admin' %}
+            <a href="{% url 'admin:welcome' %}" id="continue" class="button">Continue</a>
+        {% elif role == 'Teacher' %}
+            <a href="{% url 'teacher:welcome' %}" id="continue" class="button">Continue</a>
+        {% elif role == 'Parent' %}
+            <a href="{% url 'parent:welcome' %}" id="continue" class="button">Continue</a>
+        {% elif role == 'Student' %}
+            <a href="{% url 'student:welcome' %}" id="continue" class="button">Continue</a>
+        {% endif %}
+    </div>
+{% endblock %}

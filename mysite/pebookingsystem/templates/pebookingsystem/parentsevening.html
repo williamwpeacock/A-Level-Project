@@ -1,0 +1,67 @@
+{% extends 'pebookingsystem/base.html' %}
+
+{% block head %}
+    <title>Cheney School Parents' Evenings -
+    {% if role == 'Parent' %}
+        {{ student.fullname }} -
+    {% endif %}
+    {{ pe.pename }}</title>
+{% endblock %}
+
+{% block nav-top %}
+    <p>>>
+    {% if role == 'Student' %}
+        <a href="{% url 'student:welcome' %}">Welcome</a>
+    {% elif role == 'Teacher' %}
+        <a href="{% url 'teacher:welcome' %}">Welcome</a>
+    {% elif role == 'Parent' %}
+        <a href="{% url 'parent:welcome' %}">Welcome</a> >> <a href="{% url 'parent:child' student.id %}">{{ student.fullname }}</a>
+    {% endif %}
+    >> {{ pe.pename }}</p>
+{% endblock %}
+
+{% block nav-side-title %}
+    <h2>{{ pe.pename }}</h2>
+{% endblock %}
+
+{% block nav-side-content %}
+    {% for class in schoolclasses %}
+        {% if role == 'Student' %}
+            <a href="{% url 'student:class' pe.id class.id %}" class="list-link"><div class="list">{{ class.subject }}</div></a>
+        {% elif role == 'Teacher' %}
+            <a href="{% url 'teacher:class' pe.id class.id %}" class="list-link"><div class="list">{{ class.classname }}</div></a>
+        {% elif role == 'Parent' %}
+            <a href="{% url 'parent:class' student.id pe.id class.id %}" class="list-link"><div class="list">{{ class.subject }}</div></a>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+    <div class="content-title">{{ pe.pename }} - {{ pe.date }}</div>
+
+    <div class="content-subheading">Parents' Evening details:</div>
+
+    <div class="content-text">
+        Date: {{ pe.date }}<br>
+        Duration: {{ pe.starttime|time:"H:i" }} - {{ pe.endtime|time:"H:i" }}<br>
+        Appointment length: {{ pe.appointmentlength|time:"H:i" }}<br>
+        <br>
+        Extra details:
+        {% if pe.details|length > 0 %}
+            {{ pe.details }}
+        {% else %}
+            None.
+        {% endif %}
+    </div>
+
+    <div class="content-subheading">
+        {% if role == 'Parent' %}
+            {{ student.fullname }}'s
+        {% else %}
+            My
+        {% endif %}
+    Bookings for {{ pe.pename }}</div>
+
+    {% block bookings %}
+    {% endblock %}
+{% endblock %}

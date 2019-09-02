@@ -1,0 +1,21 @@
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto auto;
+    grid-template-areas:
+    "form form"
+    "error error"
+    "left-button right-button";
+}
+
+#left-button {
+    grid-area: left-button;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+#right-button {
+    grid-area: right-button;
+    margin-left: 80px;
+    margin-right: 80px;
+}

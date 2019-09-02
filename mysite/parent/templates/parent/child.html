@@ -1,0 +1,65 @@
+{% extends 'pebookingsystem/base.html' %}
+
+{% block head %}
+    <title>Cheney School Parents' Evenings - {{ student.fullname }}</title>
+{% endblock %}
+
+{% block nav-top %}
+    <p>>> <a href="{% url 'parent:welcome' %}">Welcome</a> >> {{ student.fullname }}</p>
+{% endblock %}
+
+{% block nav-side-title %}
+    <h2>{{ student.fullname }}</h2>
+{% endblock %}
+
+{% block nav-side-content %}
+    {% if pes|length > 0 %}
+        {% for pe in pes %}
+            <a href="{% url 'parent:parentsevening' student.id pe.id %}" class="list-link"><div class="list">{{ pe.pename }}</div></a>
+        {% endfor %}
+    {% else %}
+        <div id="no-nav">No Parents' Evenings</div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="content-title">{{ student.fullname }}</div>
+
+    <div class="content-text">
+        To book a parents' evening for {{ student.fullname }}, click on the relevant parents'
+        evening in the left navigation bar then navigate to the class you would like to book.
+        Once you have selected a class, find an available timeslot that suits you and click
+        'Book'.<br>
+        <br>
+        To view the booking, click 'View' next to the booking on the relevant class page. You
+        can remove the booking at any time by clicking 'Remove' on the view booking page.
+    </div>
+
+    <div class="content-subheading">{{ student.fullname }}'s Bookings</div>
+
+    <table id="bookings-table">
+        <tr>
+            <th class="bookings-table-heading">Parents' Evening</th>
+            <th class="bookings-table-heading">Class</th>
+            <th class="bookings-table-heading">Date</th>
+            <th class="bookings-table-heading">Timeslot</th>
+        </tr>
+            {% if bookings|length > 0 %}
+                {% for booking in bookings %}
+                    <tr>
+                        <th class="bookings-table-row">{{ booking.parentsevening__pename }}</th>
+                        <th class="bookings-table-row">{{ booking.schoolclass__subject }}</th>
+                        <th class="bookings-table-row">{{ booking.parentsevening__date }}</th>
+                        <th class="bookings-table-row">{{ booking.timeslot|time:"H:i" }}</th>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                    <th class="bookings-table-row">No Bookings</th>
+                </tr>
+            {% endif %}
+    </table>
+{% endblock %}

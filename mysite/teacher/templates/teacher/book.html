@@ -1,0 +1,24 @@
+{% extends 'pebookingsystem/book.html' %}
+
+{% block bookhead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'teacher/book.css' %}" type="text/css">
+{% endblock %}
+
+{% block bookingform %}
+    <form method="post">
+        {% csrf_token %}
+        <div id="student">
+            <div class="content-subheading">Student: {{ form.student }}</div>
+        </div>
+        <div id="notes">
+            <div class="content-subheading">Notes:</div>
+            {{ form.notes }}
+        </div>
+        <div id="error">
+            {{ error_message }}
+        </div>
+        <a href="{% url 'teacher:class' pe.id schoolclass.id %}" id="left-button" class="button">Back</a>
+        <button type="submit" id="right-button" class="button">Book</button>
+    </form>
+{% endblock %}

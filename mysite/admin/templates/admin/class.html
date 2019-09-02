@@ -1,0 +1,57 @@
+{% extends 'pebookingsystem/base.html' %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'admin/forms.css' %}" type="text/css">
+    {% if mode == 'Add' %}
+        <link rel="stylesheet" href="{% static 'admin/add.css' %}" type="text/css">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'admin/edit.css' %}" type="text/css">
+    {% endif %}
+    <title>Cheney School Parents' Evenings - Classes - {{ mode }} Class</title>
+{% endblock %}
+
+{% block nav-top %}
+    <p>>> <a href="{% url 'admin:welcome' %}">Welcome</a> >> <a href="{% url 'admin:classes' %}">Classes</a> >> {{ mode }} Class</p>
+{% endblock %}
+
+{% block nav-side-title %}
+    <h2>Admin</h2>
+{% endblock %}
+
+{% block nav-side-content %}
+    <a href="{% url 'admin:accounts' %}"><div class="list">Accounts</div></a>
+    <div class="list-selected">Classes</div>
+    <a href="{% url 'admin:parentsevenings' %}"><div class="list">Parents' Evenings</div></a>
+{% endblock %}
+
+{% block content %}
+    <div class="content-title">{{ mode }} Class Form</div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div id="form-class" class="form">
+            <div class="content-subheading">Class Name:</div> {{ form.classname }} <p class="form-explain"></p>
+            <div class="content-subheading">Subject:</div> {{ form.subject }} <p class="form-explain"></p>
+            <div class="content-subheading">School Year:</div> {{ form.schoolyear }} <p class="form-explain"></p>
+            <div class="content-subheading">Students:</div> {{ form.students }} <p class="form-explain">Hold Ctrl and click on the options to select multiple.</p>
+            <div class="content-subheading">Teachers:</div> {{ form.teachers }} <p class="form-explain">Hold Ctrl and click on the options to select multiple.</p>
+            <div class="content-subheading">Parents' Evenings:</div> {{ form.pes }} <p class="form-explain">Hold Ctrl and click on the options to select multiple.</p>
+            <div class="content-subheading">Details:</div> {{ form.details }} <p class="form-explain"></p>
+        </div>
+        <div id="error">
+            {{ error_message }}
+        </div>
+        <a href="{% url 'admin:classes' %}" id="left-button" class="button">Back</a>
+        {% if mode == 'Edit' %}
+            <a href="{% url 'admin:deleteclass' class_id %}" id="middle-button" class="button">Delete</a>
+        {% endif %}
+        <button type="submit" id="right-button" class="button">
+        {% if mode == 'Add' %}
+            Add
+        {% else %}
+            Update
+        {% endif %}
+        </button>
+    </form>
+{% endblock %}

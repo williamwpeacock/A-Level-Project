@@ -1,0 +1,25 @@
+{% extends 'login/base.html' %}
+
+{% block head %}
+    <title>Cheney School Parents' Evenings - Enter PIN</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'login/enterpin.css' %}" type="text/css">
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div id="pin">
+            PIN:<br>
+            {{ form.pin }}
+        </div>
+        <div id="explain">
+            If your school has given you a PIN, you can enter it here to gain access to your account.
+        </div>
+        <div id="error">
+            {{ error_message }}
+        </div>
+        <a href="{% url 'login:login' %}" id="left-button" class="button">Back</a>
+        <button type="submit" id="right-button" class="button">Login</button>
+    </form>
+{% endblock %}
